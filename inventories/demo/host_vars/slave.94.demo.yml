@@ -1,0 +1,7 @@
+ansible_user: root
+ansible_ssh_pass: "{{ vault_gateway_root_password }}"
+
+database_repl_user: repluser
+database_repl_pass: replpass
+database_admin_user: root
+database_admin_pass: 7layer
