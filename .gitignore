@@ -12,4 +12,7 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+# vendor
+
+roles/gateway_patch_appliance/files/*.L7P
+*.DS_Store
