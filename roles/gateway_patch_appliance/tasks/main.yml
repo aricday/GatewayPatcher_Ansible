@@ -1,0 +1,9 @@
+---
+## the main.yml includes all the components for the role
+- include: copy_patches.yml
+- include: stop_gateway.yml
+- include: patch_platform.yml
+- include: reboot_gateway.yml
+- include: stop_gateway.yml
+- include: patch_application.yml
+- include: reboot_gateway.yml

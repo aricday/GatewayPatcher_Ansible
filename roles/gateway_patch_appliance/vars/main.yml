@@ -1,0 +1,25 @@
+---
+# Patcher cli commands
+list_patches_cmd: '/opt/SecureSpan/Controller/bin/patch.sh list'
+patch_install_cmd: '/opt/SecureSpan/Controller/bin/patch.sh install'
+patch_upload_cmd: '/opt/SecureSpan/Controller/bin/patch.sh upload'
+
+# upload directory on target
+patch_target_directory: "/home/ssgconfig/"
+
+## //TO_DO: move this stuff to a better place
+#platform_patch:
+#  file:
+#    src: "/Users/aricday/Projects/InternalGithub/GatewayDeployer_Ansible/roles/patcher/files/CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-01-23.L7P"
+#    dest: "/home/ssgconfig/CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-01-23.L7P"
+#  install_cmd: '/opt/SecureSpan/Controller/bin/patch.sh install CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-01-23'
+#  upload_cmd: '/opt/SecureSpan/Controller/bin/patch.sh upload /home/ssgconfig/CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-01-23.L7P'
+#  delete_cmd: '/opt/SecureSpan/Controller/bin/patch.sh delete CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-01-23'
+#application_patch:
+#  file:
+#    src: "/Users/aricday/Projects/InternalGithub/GatewayDeployer_Ansible/roles/patcher/files/CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-02-25.L7P"
+#    dest: "/home/ssgconfig/CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-02-25.L7P"
+#    patch: '{{ application_patchId }}.L7P'
+#  install_cmd: '/opt/SecureSpan/Controller/bin/patch.sh install CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-02-25'
+#  upload_cmd: '/opt/SecureSpan/Controller/bin/patch.sh upload /home/ssgconfig/CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-02-25.L7P'
+#  delete_cmd: '/opt/SecureSpan/Controller/bin/patch.sh delete CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-02-25'

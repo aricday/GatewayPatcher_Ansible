@@ -1,0 +1,28 @@
+---
+## Upload the platform patch
+- name: uploading patch file
+  #command: '/opt/SecureSpan/Controller/bin/patch.sh upload {{ platform_patch.file.dest }}'
+  command: '{{ patch_upload_cmd }} {{ patch_target_directory }}{{ platform_patchId }}.L7P'
+
+- name: checking to see list of patches
+  shell: '{{ list_patches_cmd }}'
+  register: patch_list
+
+- name: uploaded gateway patch list
+  debug:
+    msg: "{{ patch_list.stdout }}"
+
+## Install the uploaded platform patch
+- name: install the uploaded patch
+  command: '{{ patch_install_cmd }} {{ platform_patchId }}'
+
+- name: checking to see list of patches
+  shell: '{{ list_patches_cmd }}'
+  register: patch_list
+
+## List patcheas
+- name: installed gateway patch list
+  debug:
+    msg: "{{ patch_list.stdout }}"
+
+

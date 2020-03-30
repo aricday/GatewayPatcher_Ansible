@@ -1,0 +1,15 @@
+---
+- name: copy the platform file from controller to target
+  copy:
+    src: "{{ patch_source_directory }}{{ platform_patchId }}.L7P"
+    dest: "{{ patch_target_directory }}{{ platform_patchId }}.L7P"
+    owner: root
+    group: root
+    mode: 644
+- name: copy the application file from controller to target
+  copy:
+    src: "{{ patch_source_directory }}{{ application_patchId }}.L7P"
+    dest: "{{ patch_target_directory }}{{ application_patchId }}.L7P"
+    owner: root
+    group: root
+    mode: 644
