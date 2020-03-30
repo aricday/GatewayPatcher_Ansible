@@ -13,7 +13,7 @@ Requirements
 * The Gateway nodes are added to [patch_hosts](inventories/demo/hosts) in HOSTS file
 
 ```
-    $ ansible-playbook playbooks/gateway-basic-backup.yml -i inventories/demo/hosts 
+    $ ansible-playbook playbooks/gateway-appliance-patcher.yml -i inventories/demo/hosts 
 ```
 
 group_vars Variables
