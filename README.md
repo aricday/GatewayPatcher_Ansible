@@ -43,3 +43,7 @@ Example Playbook
     - gateway_patch_appliance
 
 ```
+
+Video
+----------------
+[![Watch the video](https://www.broadcom.com/media/1211233548536/esd-hero-1920x455_final.jpg)](https://broadcom.ent.box.com/file/643731820225)
