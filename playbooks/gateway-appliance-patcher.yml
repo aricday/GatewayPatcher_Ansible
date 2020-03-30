@@ -1,0 +1,7 @@
+---
+- hosts: patch_hosts
+  become: false
+  serial: 1
+  gather_facts: true
+  roles:
+    - gateway_patch_appliance
