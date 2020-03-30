@@ -1,0 +1,41 @@
+---
+# this is the site wide default
+ansible_ssh_extra_args: "-o StrictHostKeyChecking=no"
+
+# gateway default password, which is "7layer"
+vault_gateway_default_password: 7layer
+
+# dest gateway ssgconfig user password
+vault_gateway_ssgconfig_password: 'CAdemo12#!'
+
+# dest gateway root password
+vault_gateway_root_password: 'CAdemo12#!'
+
+# CA API Gateway Policy Manager Password 
+vault_gateway_admin_pass: CAdemo123
+
+# Cluster Passphrase
+vault_gateway_cluster_pass: 7layer
+
+# Gateway Database Password
+vault_gateway_database_pass: 7layer
+
+# Administrative Database Password
+vault_gateway_database_admin_pass: 7layer
+
+# The location on the controller to store the configuration and assertion backups of each node.
+# The folder will be automatically be created on the controller if it does not exist.
+controller_dir_backup_location: /Users/aricday/Projects/InternalGithub/GatewayDeployer_Ansible/playbooks/output/ssgbackup
+
+# The location on the controller to store the license files.
+# Create the folder and copy all license files to this folder if it does not exist.
+# User for running Ansible should have access to this directory and files within it. 
+controller_dir_license_location: /tmp/license
+
+# The location on the controller to store the database dump for database export and import roles.
+# The folder will be automatically be created on the controller if it does not exist.
+# controller_dir_db_backup_location: /tmp/db_dump
+controller_dir_db_backup_location: /Users/aricday/Projects/InternalGithub/GatewayDeployer_Ansible/playbooks/output
+
+# wait time for gateway start
+gateway_startup_wait_timeout: 600 #seconds

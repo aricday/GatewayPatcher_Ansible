@@ -1,0 +1,8 @@
+
+ansible_user: ssgconfig
+ansible_password: "{{ vault_gateway_ssgconfig_password }}"
+
+database_repl_user: repluser
+database_repl_pass: replpass
+database_admin_user: root
+database_admin_pass: 7layer

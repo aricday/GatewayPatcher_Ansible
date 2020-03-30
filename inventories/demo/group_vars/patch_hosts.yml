@@ -1,0 +1,5 @@
+---
+
+patch_source_directory: "/Users/aricday/Projects/InternalGithub/GatewayDeployer_Ansible/roles/patcher/files/"
+application_patchId: 'CA_API_Gateway_v9.4.00.10242-CR04'
+platform_patchId: 'CA_API_PlatformUpdate_64bit_v9.X-RHEL-2020-02-25'

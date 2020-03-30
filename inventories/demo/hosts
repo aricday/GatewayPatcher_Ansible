@@ -1,0 +1,30 @@
+[gateway:children]
+gateway_primary_db
+gateway_failover_db
+gateway_processing_node
+
+# when renaming this group, update cluster_host/database_host properties in group_vars
+[gateway_primary_db]
+#rhel.94.demo dest=master.10.demo
+master.10.demo dest=master.10.demo
+
+[gateway_failover_db]
+slave.10.demo dest=slave.10.demo
+
+[gateway_processing_node]
+
+
+[gateway_mysql:children]
+gateway_mysql_source
+gateway_mysql_dest
+
+[gateway_mysql_source]
+rhel.94.demo dest=master.10.demo
+
+
+[gateway_mysql_dest]
+master.10.demo source=rhel.94.demo
+
+[patch_hosts]
+rhel.94.demo
+slave.94.demo

@@ -1,0 +1,17 @@
+ansible_user: admin
+ansible_password: "{{ vault_hsm_luna7_password }}"
+
+#Luna7 client server username
+hsm_user: admin
+
+#Luna7 client server password
+hsm_pass: "{{ vault_hsm_luna7_password }}"
+
+# Before you set up the following partition value, go https://cawiki.ca.com/display/AG/SafeNet+Luna+Network+HSM+7 to check the avaliable partition
+
+#The partition name that assigned to the client
+partition_name: 'qa-manual'
+
+# The partition password
+partition_pass: "{{ vault_qa_manual_partition_password }}"
+
