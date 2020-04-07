@@ -27,4 +27,4 @@ master.10.demo source=rhel.94.demo
 
 [patch_hosts]
 rhel.94.demo
-slave.94.demo
+#slave.94.demo
