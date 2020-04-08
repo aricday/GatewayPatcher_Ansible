@@ -27,10 +27,12 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 
 ### Edit variables for the passwords and output directories in *inventories/sample/group_vars/all.yml*
 
-	 * Edit the hosts file at path inventories/sample/hosts file 
-	 * Add the vaulted passwords in the inventories/sample/group_vars/all.yml
-	 	 $ ansible-vault encrypt_string --vault-password-file vault-password-file.txt '7layer' 
+### Edit the hosts file at path *inventories/sample/hosts* file 
 
+### Add the vaulted passwords in *inventories/sample/group_vars/all.yml*
+```
+	$ ansible-vault encrypt_string --vault-password-file vault-password-file.txt '7layer' 
+```
 
 ### Enable OTK export by uncommenting the following lines in: *inventories/sample/group_vars/gateway_mysql.yml*
 ```
@@ -107,6 +109,7 @@ $ ansible-playbook playbooks/gateway-restart.yml -i inventories/demo/hosts
 ```
 $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/demo/hosts
 ```
+
 
 **ROOT USER** - configure hosts_vars group and utilize IPs for proper permissions granted
 ```
