@@ -102,14 +102,16 @@ $ ansible-playbook playbooks/gateway-database-import.yml -i inventories/demo/hos
 
 Upgrade DB Schema, Install License and Reboot nodes
 ```
-$ ansible-playbook playbooks/gateway-database-schema-upgrade.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-database-schema-upgrade.yml -i inventories/demo/hosts
 
-$ ansible-playbook playbooks/gateway-install-license.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-install-license.yml -i inventories/demo/hosts
 
 $ ansible-playbook playbooks/gateway-restart.yml -i inventories/demo/hosts
 ```
 
 POST-Upgrade step to run SSGRESTORE.sh
+
+
 **ROOT USER** - ssgrestore backup files and assertions (requires `upgrade_source` variable defined in HOSTS)
 ```
 $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/demo/hosts  --vault-password-file vault-password-file.txt
