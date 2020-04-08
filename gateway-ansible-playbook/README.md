@@ -6,7 +6,7 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 
 * Follow instructions in [README.md](https://github.com/CAAPIM/gateway-ansible-playbook/#prerequisites)
 
-* There are instructions on how to install sshpass here:
+* Additional instructions on how to install sshpass:
 ```
 	$ curl -O -L http://downloads.sourceforge.net/project/sshpass/sshpass/1.06/sshpass-1.06.tar.gz && tar xvzf sshpass-1.06.tar.gz
 	$ ./configure
@@ -15,11 +15,11 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 ```
 
 ## Setup Project
-### Edit inventories/sample/hosts
+### Edit *inventories/sample/hosts*
 ```
 	[gateway_primary_db]
 	rhel.94.demo dest=centos.10.demo
-	gateway_mysql_source]
+	[gateway_mysql_source]
 	rhel.94.demo dest=centos.10.demo
 	[gateway_mysql_dest]
 	centos.10.demo source=rhel.94.demo
@@ -29,7 +29,7 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 
 	 * Edit the hosts file at path inventories/sample/hosts file 
 	 * Add the vaulted passwords in the inventories/sample/group_vars/all.yml
-	 	` ansible-vault encrypt_string --vault-password-file vault-password-file.txt '7layer' `
+	 	 $ ansible-vault encrypt_string --vault-password-file vault-password-file.txt '7layer' 
 
 
 ### Enable OTK export by uncommenting the following lines in: *inventories/sample/group_vars/gateway_mysql.yml*
@@ -40,19 +40,33 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 ```
 
 ###  Check Inventory Hosts
-	` $ cd /Users/aric/Projects/gateway-ansible-playbook `
-	` $ ansible-inventory -i ./inventories/sample --list `
-
+```
+	 $ ansible-inventory -i ./inventories/sample --list
+	 $ ansible-inventory -i ./inventories/sample --graph
+```
 
 ## Execute Playbooks - Source Gateways
+
+Analyze the gateways in scope for playbook.  Export report into [playbooks/report]() directory
 ```
 $ ansible-playbook playbooks/gateway-preupgrade-analyzer.yml -i inventories/sample/hosts --vault-password-file vault-password-file.txt
+```
 
-$ ansible-playbook playbooks/gateway-database-export.yml -i inventories/sample/hosts --vault-password-file vault-password-file.txt
+Export the primary DB into [db_backup]() directory
+```
 
-ROOT $ ansible-playbook playbooks/gateway-basic-backup.yml -i inventories/sample/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-database-export.yml -i inventories/sample/hosts
+```
 
-ROOT $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/sample/hosts
+**ROOT USER** - ssgbackup files and assertions 
+```
+
+$ ansible-playbook playbooks/gateway-basic-backup.yml -i inventories/sample/hosts --vault-password-file vault-password-file.txt
+```
+
+**ROOT USER** - ssgrestore backup files and assertions (requires `upgrade_source` variable defined in HOSTS)
+```
+$ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/sample/hosts
 
 ```
 
@@ -67,21 +81,34 @@ ROOT $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventorie
 
 ## Execute Playbooks - New v10 CentOS
 
+Initial configuration of fresh install gateway
 ```
 $ ansible-playbook playbooks/gateway-autoprovision-nodes.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
+```
 
-ROOT $ ansible-playbook playbooks/gateway-database-replication.yml -i inventories/demo/hosts
+Import the primary DB
+```
 
-$ ansible-playbook playbooks/gateway-database-import.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-database-import.yml -i inventories/demo/hosts
+```
+
+Upgrade DB Schema, Install License and Reboot nodes
+```
 
 $ ansible-playbook playbooks/gateway-database-schema-upgrade.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
 
 $ ansible-playbook playbooks/gateway-install-license.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
 
-ROOT $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/demo/hosts
-
 $ ansible-playbook playbooks/gateway-restart.yml -i inventories/demo/hosts
 
 ```
 
+**ROOT USER** - ssgrestore backup files and assertions (requires `upgrade_source` variable defined in HOSTS)
+```
+$ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/demo/hosts
+```
 
+**ROOT USER** - configure hosts_vars group and utilize IPs for proper permissions granted
+```
+$ ansible-playbook playbooks/gateway-database-replication.yml -i inventories/demo/hosts
+```
