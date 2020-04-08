@@ -51,25 +51,22 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 
 Analyze the gateways in scope for playbook.  Export report into [playbooks/report]() directory
 ```
-$ ansible-playbook playbooks/gateway-preupgrade-analyzer.yml -i inventories/sample/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-preupgrade-analyzer.yml -i inventories/sample/hosts
 ```
 
-Export the primary DB into [db_backup]() directory
+Export the primary DB into [tmp/db_dump]() directory
 ```
-
 $ ansible-playbook playbooks/gateway-database-export.yml -i inventories/sample/hosts
 ```
 
 **ROOT USER** - ssgbackup files and assertions 
 ```
-
-$ ansible-playbook playbooks/gateway-basic-backup.yml -i inventories/sample/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-basic-backup.yml -i inventories/sample/hosts
 ```
 
 **ROOT USER** - ssgrestore backup files and assertions (requires `upgrade_source` variable defined in HOSTS)
 ```
 $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/sample/hosts
-
 ```
 
 ### If you need to enable ssh access for root user:
@@ -85,33 +82,37 @@ $ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/sam
 
 Initial configuration of fresh install gateway
 ```
-$ ansible-playbook playbooks/gateway-autoprovision-nodes.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
+$ ansible-playbook playbooks/gateway-autoprovision-nodes.yml -i inventories/demo/hosts
 ```
+
+
+**ROOT USER** - configure hosts_vars group and **utilize IPs for proper permissions** granted
+
+Start replication on the 2 configured nodes as root
+```
+$ ansible-playbook playbooks/gateway-database-replication.yml -i inventories/demo/hosts
+```
+* After replication has started, use ssgconfig to point the slave node back to master and add failover in slave.
+* Verify replication ` mysql -e "show slave status\G" `
 
 Import the primary DB
 ```
-
 $ ansible-playbook playbooks/gateway-database-import.yml -i inventories/demo/hosts
 ```
 
 Upgrade DB Schema, Install License and Reboot nodes
 ```
-
 $ ansible-playbook playbooks/gateway-database-schema-upgrade.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
 
 $ ansible-playbook playbooks/gateway-install-license.yml -i inventories/demo/hosts --vault-password-file vault-password-file.txt
 
 $ ansible-playbook playbooks/gateway-restart.yml -i inventories/demo/hosts
-
 ```
 
+POST-Upgrade step to run SSGRESTORE.sh
 **ROOT USER** - ssgrestore backup files and assertions (requires `upgrade_source` variable defined in HOSTS)
 ```
-$ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/demo/hosts
+$ ansible-playbook playbooks/gateway-restore-basic-backup.yml -i inventories/demo/hosts  --vault-password-file vault-password-file.txt
 ```
 
 
-**ROOT USER** - configure hosts_vars group and utilize IPs for proper permissions granted
-```
-$ ansible-playbook playbooks/gateway-database-replication.yml -i inventories/demo/hosts
-```
