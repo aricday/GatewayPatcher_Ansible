@@ -10,7 +10,7 @@ Requirements
 * Download patch files from [support site](https://support.ca.com/us/product-content/recommended-reading/technical-document-index/ca-api-gateway-solutions-and-patches.html)
 * Add the patch files to the [roles/gateway_patch_appliance/files](roles/gateway_patch_appliance/files) directory
 * The role must be executed with the Ansible user having root privilege.
-* The Gateway nodes are added to [patch_hosts](inventories/demo/hosts) in HOSTS file
+* The Gateway nodes are added to [patch_hosts](inventories/demo/hosts#L28) in HOSTS file
 
 ```
     $ ansible-playbook playbooks/gateway-appliance-patcher.yml -i inventories/demo/hosts 

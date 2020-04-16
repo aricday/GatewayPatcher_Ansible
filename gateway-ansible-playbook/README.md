@@ -15,7 +15,7 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 ```
 
 ## Setup Project
-### Edit *inventories/sample/hosts*
+### Edit the hosts file at path *inventories/sample/hosts*
 ```
 	[gateway_primary_db]
 	rhel.94.demo dest=centos.10.demo
@@ -26,8 +26,6 @@ Ansible playbooks to migrate Layer7 Gateways from RHEL to CentOS
 ```
 
 ### Edit variables for the passwords and output directories in *inventories/sample/group_vars/all.yml*
-
-### Edit the hosts file at path *inventories/sample/hosts* file 
 
 ### Add the vaulted passwords in *inventories/sample/group_vars/all.yml*
 ```
