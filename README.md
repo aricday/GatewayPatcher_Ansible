@@ -1,6 +1,8 @@
 Gateway Patch Appliance
 =======
 
+## MERGED with Fork - [https://github.com/aricday/gateway-ansible-playbook](https://github.com/aricday/gateway-ansible-playbook)
+
 This role will apply both platform and application patches for Layer7 appliances.  The sample playbook should execute in serial mode and reboot node after the installation of each patch.
  
  **Note: This role must be executed with root privileges.**
